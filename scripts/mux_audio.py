@@ -7,6 +7,13 @@ CLIP_DURATION_SECONDS is 10.0 here (not 6.0) -- this niche uses Hailuo
 2.3's longer duration=10 option for its video generations (see
 higgsfield_client.py), per dez's request for 10s clips on this account.
 
+MUSIC_VOLUME knocks the track down before fading so it sits as a bed
+under the visuals instead of overpowering them -- dez asked for this
+after sending the fantasy-adventure-quest track (it's a fairly dense,
+upfront mix on its own). 0.45 is roughly -7dB, a noticeable but not
+drastic reduction; adjust here if it still reads too loud/quiet once
+you see a real post.
+
 Requires `ffmpeg` and `ffprobe` on PATH (installed via apt in the workflow).
 """
 import os
@@ -14,6 +21,7 @@ import subprocess
 
 CLIP_DURATION_SECONDS = 10.0  # matches Hailuo 2.3's duration=10 setting
 FADE_SECONDS = 0.5
+MUSIC_VOLUME = 0.45  # ~-7dB -- keeps the track from overpowering the clip
 
 def get_audio_duration(audio_path):
     """Returns the audio file's duration in seconds via ffprobe."""
@@ -27,12 +35,13 @@ def get_audio_duration(audio_path):
 def mux(video_path, audio_path, offset_seconds, out_path):
     """
     Cuts a CLIP_DURATION_SECONDS window out of audio_path starting at
-    offset_seconds, fades it in/out, and muxes it onto video_path (video
-    stream copied, not re-encoded).
+    offset_seconds, lowers its volume, fades it in/out, and muxes it onto
+    video_path (video stream copied, not re-encoded).
     """
     fade_out_start = CLIP_DURATION_SECONDS - FADE_SECONDS
     filter_complex = (
-        f"[1:a]afade=t=in:st=0:d={FADE_SECONDS},"
+        f"[1:a]volume={MUSIC_VOLUME},"
+        f"afade=t=in:st=0:d={FADE_SECONDS},"
         f"afade=t=out:st={fade_out_start}:d={FADE_SECONDS}[a]"
     )
     cmd = [
