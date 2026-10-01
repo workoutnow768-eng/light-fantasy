@@ -1,26 +1,26 @@
 [
   {
-    "scene_index": 4,
-    "title": "lanterns on the lake",
+    "scene_index": 8,
+    "title": "tending the glowing garden",
     "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_0/final.mp4",
-    "scheduled_at": "2026-10-03T20:00:00Z"
+    "scheduled_at": "2026-10-05T20:00:00Z"
   },
   {
-    "scene_index": 5,
-    "title": "flowers in the horse's mane",
+    "scene_index": 9,
+    "title": "releasing the dove",
     "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_1/final.mp4",
-    "scheduled_at": "2026-10-04T08:00:00Z"
+    "scheduled_at": "2026-10-06T08:00:00Z"
   },
   {
-    "scene_index": 6,
-    "title": "sunset with the wolf",
+    "scene_index": 10,
+    "title": "snowfall by the lantern",
     "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_2/final.mp4",
-    "scheduled_at": "2026-10-04T20:00:00Z"
+    "scheduled_at": "2026-10-06T20:00:00Z"
   },
   {
-    "scene_index": 7,
-    "title": "flute by the waterfall",
+    "scene_index": 11,
+    "title": "fireflies over the valley",
     "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_3/final.mp4",
-    "scheduled_at": "2026-10-05T08:00:00Z"
+    "scheduled_at": "2026-10-07T08:00:00Z"
   }
 ]
