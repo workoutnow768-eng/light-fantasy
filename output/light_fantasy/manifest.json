@@ -1,0 +1,26 @@
+[
+  {
+    "scene_index": 0,
+    "title": "grimy knight at the village well",
+    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_0/final.mp4",
+    "scheduled_at": "2026-10-07T20:00:00Z"
+  },
+  {
+    "scene_index": 1,
+    "title": "hillside village at golden hour",
+    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_1/final.mp4",
+    "scheduled_at": "2026-10-08T08:00:00Z"
+  },
+  {
+    "scene_index": 2,
+    "title": "grimy knight feeding the fox",
+    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_2/final.mp4",
+    "scheduled_at": "2026-10-08T20:00:00Z"
+  },
+  {
+    "scene_index": 3,
+    "title": "misty harbor town at dawn",
+    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_3/final.mp4",
+    "scheduled_at": "2026-10-09T08:00:00Z"
+  }
+]
