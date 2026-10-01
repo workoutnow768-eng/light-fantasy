@@ -30,9 +30,11 @@ v2 formula for every scene, no exceptions:
    shot on a full-frame DSLR with a wide lens, highly detailed, vivid
    color grade, 9:16 vertical, no text, no watermark.
 6. Animation is real sustained camera motion matched to the action --
-   tracking, circling, pushing in -- never a static or locked shot.
+   tracking, circling, pushing in -- UNLESS a scene explicitly calls for
+   a locked-off shot (see "meadow duel" below): never ambiguous, always
+   a deliberate choice either way, never a lazy static default.
 
-20 scenes, roughly 14 light / 6 dark-leaning, per dez's original
+21 scenes, roughly 14 light / 7 dark-leaning, per dez's original
 light-mostly-with-dark-breaks direction, now rebuilt to this bar.
 """
 
@@ -54,16 +56,17 @@ SCENES = [
             "photography, shot on a full-frame DSLR with a wide lens, "
             "epic scale, highly detailed, vivid magical color grade, "
             "9:16 vertical, no text, no watermark",
-        "animate_prompt": "Dynamic cinematic tracking shot of two "
-            "armoured knights in a full sword fight in the wildflower "
-            "meadow, blades clashing and ringing, footwork shifting back "
-            "and forth as they parry and strike, wildflowers flattened "
-            "and kicked up around their feet, camera circling and "
-            "pushing in slightly to follow the action, the distant "
-            "mountain castle and dramatic golden-lit sky visible behind "
-            "them the whole time, sunbeams shifting through the clouds. "
-            "Continuous high-energy fight choreography motion the "
-            "entire clip, not static, no text",
+        "animate_prompt": "Locked-off wide static camera holding the "
+            "exact framing of the still -- the camera itself does not "
+            "pan, track, zoom, or drift at all for the entire clip. Only "
+            "the two knights move within the fixed frame: swords "
+            "clashing and ringing, footwork shifting back and forth as "
+            "they parry and strike, wildflowers flattened and kicked up "
+            "around their feet, sunbeams shifting through the clouds "
+            "behind them. The whole composition -- meadow, fighters, and "
+            "distant mountain castle -- stays fixed in frame the entire "
+            "clip, the fight itself providing all the motion, no camera "
+            "movement whatsoever, no text",
     },
     {
         "title": "cliffside gallop",
