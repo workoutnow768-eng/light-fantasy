@@ -1,402 +1,425 @@
 """
 Scene bank for the light-fantasy video pipeline (@spongebob_prime_).
 
-v3 -- complete reset based on dez's reference
-(https://www.tiktok.com/@clawenai/video/7499162427452296490,
-hashtags #lightfantasy #brightfantasy #dreamcore #nostalgic). The v2
-bank (wide epic landscapes, dramatic skies, knights fighting/charging)
-was the wrong genre entirely -- dez called it "AI slop" and said the
-real "light fantasy" trend is the opposite: quiet, intimate, nostalgic
-moments. A lone knight in full armor doing something small and tender
-(reading, resting, tending an animal) under warm hazy golden light,
-with soft nature magic -- butterflies, fireflies, drifting petals --
-rather than loud dramatic effects. Confirmed against a test
-still+animation (knight reading under a tree, butterflies drifting)
-before this full rebuild: "yes stuff like that is the right way. just
-animated with a fair amount of movement."
+v4 -- second reset. v3 (intimate knight moments -- reading, feeding
+animals, etc.) was closer but dez still called it "typical standard AI
+slop" against the reference
+(https://www.tiktok.com/@clawenai/video/7499162427452296490). Two test
+stills were generated to isolate the fix: (1) a grimy, worn-armor
+knight in a WIDE zoomed-out village square (full figure + surrounding
+environment, not a tight medium shot), (2) a beautiful quiet hillside
+town with no knight at all. dez picked #1 ("first one") and confirmed
+the animated test of it (same grimy knight, camera zooming OUT to
+reveal more of the square, verified sharp with no blur throughout).
 
-v3 formula for every scene, no exceptions:
+v4 formula for every scene, no exceptions:
 
-1. INTIMATE MEDIUM-SHOT COMPOSITION. The knight (or occasional second
-   figure/animal companion) fills a meaningful part of the frame --
-   not a tiny speck in a vast landscape, not a tight face close-up.
-   Think "quiet portrait of a moment," not "movie poster."
-2. WARM, HAZY, NOSTALGIC LIGHT. Golden hour, soft diffused sunbeams
-   through leaves/mist, firelight, lantern glow, or soft moonlight --
-   always warm and dreamy, never harsh or cold, never a stormy/epic sky.
-3. A SMALL TENDER HUMAN MOMENT, not action or combat. Resting, reading,
-   feeding or petting an animal, tending flowers, playing music,
-   watching a sunset, warming hands by a fire -- the charm is the
-   contrast between the hardened armor and the gentle, vulnerable act.
-4. SOFT VISIBLE MAGIC woven in lightly -- drifting butterflies or
-   fireflies, floating petals or embers, faint glowing pollen or light
-   particles, gentle mist -- never a dramatic spell-effect or sky event.
-5. Photorealistic (not painted/illustrated), shot on a full-frame DSLR
-   with a soft/shallow depth of field, warm film-like color grade,
-   9:16 vertical, no text, no watermark.
-6. Animation: a fair amount of real movement every time -- a slow
-   cinematic camera push-in or gentle drift, PLUS lots of environmental
-   motion (butterflies/fireflies swirling, embers or petals drifting,
-   grass or leaves stirring in a breeze, water rippling, fire
-   flickering) and a small character action (turning a page, a hand
-   reaching out, a head turning). Never fully locked-off/static, never
-   a fast dramatic action-tracking shot -- calm but clearly alive.
+1. ZOOMED OUT / WIDE COMPOSITION. Full figure (when there is one) plus
+   a real sense of the surrounding place -- buildings, streets, a
+   landscape, weather, texture -- never a tight medium/close shot.
+   This is the #1 fix from v3: dez explicitly said "more zoomed out."
+2. USED, WORN, IMPERFECT DETAIL. When a knight appears, the armor is
+   grimy, scratched, dented, dusty, with rust streaks -- never
+   pristine or polished. Buildings are weathered, mossy, imperfect.
+   Nothing reads as too clean/glossy/CGI-smooth.
+3. VARIETY OF SUBJECT. Not every scene needs a knight. Quiet towns,
+   villages, landscapes, and architecture on their own are just as
+   valid as a knight doing something small and human -- dez explicitly
+   said "it dont just have to be with a knight in it. it could be a
+   beautiful town."
+4. WARM, HAZY, NOSTALGIC LIGHT. Golden hour, soft diffused sunbeams,
+   lantern glow, soft mist -- warm and dreamy, muted/desaturated film-
+   like color grade, never a vivid HDR/glossy look.
+5. SOFT VISIBLE MAGIC woven in lightly where it fits -- drifting
+   butterflies or fireflies, floating petals, faint light particles,
+   gentle mist -- understated, never a dramatic spell-effect.
+6. Photorealistic documentary-style photography (not painted, not
+   overly polished), shot on a full-frame DSLR, natural imperfect
+   lighting, 9:16 vertical, no text, no watermark.
+7. Animation: a fair amount of real movement every time -- camera
+   zooming/drifting to reveal more of the environment, PLUS
+   environmental motion (leaves, butterflies, smoke, water, foliage)
+   and small natural action. The entire clip stays in crisp sharp
+   focus throughout -- no motion blur, no soft frames (this is also
+   enforced centrally in higgsfield_client.py for every scene).
 
-17 scenes, 13 light / 4 quieter dark-leaning (still tender and
-nostalgic, never graphic -- per dez's original light-mostly-with-dark-
-breaks direction), covering a range of settings and small moments so
-the daily rotation doesn't repeat.
+16 scenes, mixing grimy-knight scenes with knight-free town/landscape
+scenes, roughly 12 light / 4 quieter dark-leaning.
 """
 
 SCENES = [
     {
-        "title": "reading under the blossom tree",
+        "title": "grimy knight at the village well",
         "has_people": True,
         "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a lone "
-            "knight in full ornate plate armor sits peacefully beneath "
-            "a large tree, gently reading an old leather-bound book "
-            "held in his gauntleted hands, warm golden-hour sunlight "
-            "streaming through the leaves above in soft hazy diffused "
-            "rays, dozens of small orange butterflies drifting through "
-            "the air around him, some landing near the pages, soft "
-            "bokeh, fallen leaves and wildflowers on the ground, "
-            "tender and quiet mood, shot on a full-frame DSLR with a "
-            "shallow depth of field, warm dreamy nostalgic color "
-            "grade, medium shot centered on the knight under the tree "
-            "canopy, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "The knight slowly turns a page in the book. "
-            "Butterflies swirl and flutter in flowing paths around him, "
-            "some landing on his shoulder or the book then taking "
-            "flight again. Warm sunlight shifts and flickers through "
-            "the moving leaves as a gentle breeze stirs the branches "
-            "and scatters loose petals through the air. The camera "
-            "slowly pushes in and drifts slightly to the side. A fair "
-            "amount of movement throughout, calm and dreamy, no text",
-    },
-    {
-        "title": "feeding the fox",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight in "
-            "weathered plate armor kneels in a misty forest clearing, "
-            "gauntlet held out flat with a piece of bread as a small "
-            "red fox cautiously eats from his palm, soft early-morning "
-            "light filtering through the trees in warm hazy beams, "
-            "fireflies glowing faintly in the shadows nearby, dew on "
-            "the ferns and moss, tender and gentle mood, shot on a "
-            "full-frame DSLR with a shallow depth of field, warm "
-            "nostalgic color grade, medium shot, 9:16 vertical, no "
-            "text, no watermark",
-        "animate_prompt": "The fox nibbles from the knight's palm then "
-            "looks up at him, ears twitching, tail flicking gently. "
-            "Fireflies drift and pulse softly in the misty shadows "
-            "behind them, mist curling slowly along the forest floor. "
-            "The camera drifts slowly closer and tilts slightly down "
-            "toward the fox. A fair amount of movement throughout, "
-            "calm and dreamy, no text",
-    },
-    {
-        "title": "campfire embers",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight in "
-            "dented plate armor sits cross-legged beside a small "
-            "crackling campfire at dusk, firelight warmly lighting his "
-            "armor and the ground around him, glowing embers rising "
-            "into the darkening sky, a faint first star visible above, "
-            "soft smoke drifting, tender and peaceful mood, shot on a "
-            "full-frame DSLR with a shallow depth of field, warm "
-            "nostalgic color grade, medium shot, 9:16 vertical, no "
-            "text, no watermark",
-        "animate_prompt": "The campfire flickers and crackles, flames "
-            "dancing and casting shifting warm light across the "
-            "knight's armor. Embers rise steadily into the dusk sky, "
-            "swirling gently in the rising heat. The knight slowly "
-            "leans forward and warms his gauntlets over the flame. The "
-            "camera drifts slowly in a slight arc around the fire. A "
-            "fair amount of movement throughout, calm and dreamy, no "
-            "text",
-    },
-    {
-        "title": "stream at dawn",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "kneels beside a gentle forest stream at dawn, having "
-            "removed one gauntlet to cup clear water in his bare hand, "
-            "dappled golden sunlight breaking through the canopy above "
-            "onto the water, dragonflies hovering over the surface, "
-            "soft mist rising off the stream, moss-covered stones, "
-            "tender and quiet mood, shot on a full-frame DSLR with a "
-            "shallow depth of field, warm nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "Water ripples gently as it flows past the "
-            "knight's cupped hand, catching the dappled sunlight in "
-            "small sparkles. Dragonflies dart and hover over the "
-            "stream's surface. Mist curls slowly upward. The camera "
-            "slowly pushes in toward the knight's hand and the water. "
-            "A fair amount of movement throughout, calm and dreamy, no "
-            "text",
-    },
-    {
-        "title": "lanterns on the lake",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight in "
-            "full armor crouches at the edge of a still lake at "
-            "twilight, gently setting a small glowing paper lantern "
-            "onto the water, dozens of lanterns already drifting out "
-            "across the lake reflecting warm golden light, soft purple "
-            "dusk sky above, fireflies mixing with the lantern glow, "
-            "tender and peaceful mood, shot on a full-frame DSLR with "
-            "a shallow depth of field, warm nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "The lantern drifts gently away from the "
-            "knight's hand onto the water's rippling surface, joining "
-            "the others already floating across the lake. Fireflies "
-            "drift lazily through the air. The warm lantern light "
-            "flickers and reflects on the gently rippling water. The "
-            "camera drifts slowly backward and up, revealing more "
-            "lanterns on the lake. A fair amount of movement "
-            "throughout, calm and dreamy, no text",
-    },
-    {
-        "title": "flowers in the horse's mane",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight in "
-            "polished armor stands beside a white horse in a sunlit "
-            "wildflower field, gently braiding small wildflowers into "
-            "the horse's mane, warm golden light, petals and seed-fluff "
-            "drifting on the breeze, the horse's eyes soft and calm, "
-            "tender and warm mood, shot on a full-frame DSLR with a "
-            "shallow depth of field, warm nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "The knight's hands continue gently weaving "
-            "flowers into the horse's mane as it swishes its tail and "
-            "shifts its weight. Wildflowers and grass sway in the "
-            "breeze, petals and fluff drifting past. The horse turns "
-            "its head slightly toward the knight. The camera drifts "
-            "slowly to the side in a gentle arc. A fair amount of "
-            "movement throughout, calm and dreamy, no text",
-    },
-    {
-        "title": "sunset with the wolf",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight in "
-            "weathered armor sits on a grassy hillside at sunset, one "
-            "hand resting on the back of a large grey wolf lying beside "
-            "him, both facing the warm orange horizon, soft golden-"
-            "pink sky, tall grass swaying gently, tender and quiet "
-            "mood, shot on a full-frame DSLR with a shallow depth of "
-            "field, warm nostalgic color grade, medium shot, 9:16 "
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "weary knight in heavily worn, dented, scratched plate "
+            "armor with dried mud and grime caked into the joints and "
+            "rust streaks along the edges, sitting on a low stone wall "
+            "at the edge of a quiet moss-covered village square, "
+            "reading a tattered old book, the full figure visible with "
+            "plenty of surrounding environment -- cobblestone ground, "
+            "an old stone well, a leaning wooden cart, ivy-covered "
+            "walls -- warm hazy late-afternoon sunlight, soft dust "
+            "motes and a few drifting leaves in the air, muted "
+            "nostalgic film-like color grade, slightly desaturated, "
+            "photorealistic documentary photography style, not overly "
+            "polished or glossy, natural imperfect lighting, 9:16 "
             "vertical, no text, no watermark",
-        "animate_prompt": "The wolf's fur and ears shift slightly as it "
-            "breathes, tail giving a slow gentle sweep. The knight's "
-            "hand strokes the wolf's back once. Tall grass sways "
-            "steadily in the breeze as the sunset colors shift and "
-            "deepen slightly. The camera drifts slowly in from behind "
-            "them toward the horizon. A fair amount of movement "
-            "throughout, calm and dreamy, no text",
+        "animate_prompt": "The knight slowly turns a page in the "
+            "tattered book, his grimy scratched armor catching the "
+            "warm light. A few leaves drift down across the cobblestone "
+            "square. Distant butterflies flutter near the ivy-covered "
+            "wall. Faint dust motes drift through the air. The camera "
+            "slowly zooms out and drifts backward, revealing more of "
+            "the quiet village square around him -- the stone well, "
+            "the wooden cart, the ivy wall. A fair amount of movement "
+            "throughout, calm and nostalgic, no text",
     },
     {
-        "title": "flute by the waterfall",
-        "has_people": True,
+        "title": "hillside village at golden hour",
+        "has_people": False,
         "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "sits on a moss-covered rock beside a small waterfall, "
-            "playing a simple wooden flute, fine mist drifting from "
-            "the falling water, soft sunbeams piercing the mist, moss "
-            "and ferns around him, tender and peaceful mood, shot on a "
-            "full-frame DSLR with a shallow depth of field, warm "
-            "nostalgic color grade, medium shot, 9:16 vertical, no "
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "beautiful small medieval hillside town at golden hour, "
+            "stone cottages with thatched and mossy slate roofs "
+            "climbing a gentle hill, narrow cobblestone streets, warm "
+            "lantern light glowing in a few windows, soft smoke rising "
+            "from chimneys, wildflowers growing between the stones, a "
+            "few butterflies and birds drifting through the warm hazy "
+            "light, distant rolling green hills fading into soft mist, "
+            "muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, no people prominent in frame, 9:16 vertical, no "
             "text, no watermark",
-        "animate_prompt": "The waterfall flows continuously behind the "
-            "knight, mist drifting and catching the sunbeams in soft "
-            "shifting shafts of light. The knight's fingers move gently "
-            "over the flute as he plays. The camera slowly pushes in "
-            "and drifts slightly upward through the mist. A fair "
-            "amount of movement throughout, calm and dreamy, no text",
-    },
-    {
-        "title": "tending the glowing garden",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "kneels in a small cottage garden at dusk, carefully "
-            "watering a bed of softly glowing bioluminescent flowers "
-            "with a clay jug, warm lantern light spilling from a "
-            "nearby window, fireflies and drifting pollen catching the "
-            "light, tender and cozy mood, shot on a full-frame DSLR "
-            "with a shallow depth of field, warm nostalgic color "
-            "grade, medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "Water pours gently from the jug onto the "
-            "glowing flowers, which pulse softly brighter as droplets "
-            "land on them. Fireflies and pollen drift lazily through "
-            "the warm lantern light. The knight's hand adjusts a "
-            "drooping stem. The camera drifts slowly closer to the "
-            "flowerbed. A fair amount of movement throughout, calm and "
-            "dreamy, no text",
-    },
-    {
-        "title": "releasing the dove",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "stands on a sunlit hilltop at sunrise, arms raised gently "
-            "as a white dove lifts off from his open gauntlets into "
-            "the golden morning sky, soft warm light, loose feathers "
-            "drifting on the breeze, mist in the valley below, tender "
-            "and hopeful mood, shot on a full-frame DSLR with a "
-            "shallow depth of field, warm nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "The dove's wings beat as it lifts off the "
-            "knight's gauntlets and rises into the sky, feathers "
-            "drifting slowly down past him. Morning mist shifts gently "
-            "in the valley below. The knight tilts his head up to "
-            "watch the dove go. The camera tilts and drifts slowly "
-            "upward following the dove. A fair amount of movement "
-            "throughout, calm and dreamy, no text",
-    },
-    {
-        "title": "snowfall by the lantern",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "leans against a tree in a snow-dusted pine forest at "
-            "dusk, a small lit lantern resting beside him in the snow, "
-            "soft snow falling gently, warm lantern glow contrasting "
-            "the cool blue twilight, his breath faintly visible, "
-            "tender and cozy mood, shot on a full-frame DSLR with a "
-            "shallow depth of field, warm nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "Snow falls steadily and gently around the "
-            "knight, flakes catching the warm lantern light as they "
-            "drift down. His breath fogs faintly in the cold air. The "
-            "lantern flame flickers softly. The camera drifts slowly "
-            "in and slightly to the side. A fair amount of movement "
-            "throughout, calm and dreamy, no text",
-    },
-    {
-        "title": "fireflies over the valley",
-        "has_people": True,
-        "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "sits cross-legged on a cliff edge at dusk, watching "
-            "thousands of fireflies swarm and glow softly in the "
-            "valley below like a sea of warm light, deep blue twilight "
-            "sky above, soft wind in his hair where his helmet rests "
-            "beside him, tender and awestruck mood, shot on a full-"
-            "frame DSLR with a shallow depth of field, warm nostalgic "
-            "color grade, medium shot, 9:16 vertical, no text, no "
-            "watermark",
-        "animate_prompt": "Fireflies pulse and drift in slow glowing "
-            "waves through the valley below, shifting brightness. The "
-            "knight's hair and cloak stir gently in the breeze as he "
-            "watches, still. The camera drifts slowly forward toward "
-            "the cliff edge, taking in more of the glowing valley. A "
-            "fair amount of movement throughout, calm and dreamy, no "
+        "animate_prompt": "Smoke drifts slowly up from the chimneys "
+            "and dissipates into the golden haze. Birds glide slowly "
+            "across the sky above the rooftops. A butterfly drifts "
+            "past in the foreground. Window lantern light flickers "
+            "faintly. The camera slowly drifts forward and down toward "
+            "the town, revealing more streets and rooftops. A fair "
+            "amount of movement throughout, calm and nostalgic, no "
             "text",
     },
     {
-        "title": "apples in the wheat field",
+        "title": "grimy knight feeding the fox",
         "has_people": True,
         "mood": "light",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "stands in a golden wheat field at sunset, feeding an "
-            "apple to a white horse from his open palm, the wheat "
-            "swaying in long warm light, soft dust catching the sun, "
-            "tender and warm mood, shot on a full-frame DSLR with a "
-            "shallow depth of field, warm nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "The horse leans forward and takes the apple "
-            "gently from the knight's palm, chewing as its ears flick. "
-            "Golden wheat sways steadily in the breeze all around "
-            "them, dust motes drifting through the low sunlight. The "
-            "camera drifts slowly sideways past them. A fair amount of "
-            "movement throughout, calm and dreamy, no text",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "knight in battered, scratched plate armor with mud and "
+            "rust stains kneels at the edge of a misty forest "
+            "clearing, full figure visible with the wide clearing and "
+            "tall trees around him, a small red fox cautiously eating "
+            "from his outstretched gauntlet, soft early-morning light "
+            "filtering through the canopy in warm hazy beams, mist "
+            "pooling low across the ferns and moss, muted nostalgic "
+            "film-like color grade, slightly desaturated, "
+            "photorealistic documentary photography style, not overly "
+            "polished or glossy, natural imperfect lighting, 9:16 "
+            "vertical, no text, no watermark",
+        "animate_prompt": "The fox nibbles from the knight's palm then "
+            "looks up, ears twitching. Mist drifts and curls slowly "
+            "across the clearing floor. Light shafts shift faintly "
+            "through the moving canopy above. The camera slowly zooms "
+            "out and rises, revealing the full misty clearing and "
+            "surrounding trees. A fair amount of movement throughout, "
+            "calm and nostalgic, no text",
     },
     {
-        "title": "quiet watch at the fallen sword",
-        "has_people": True,
-        "mood": "dark",
-        "still_prompt": "Intimate photorealistic portrait: a lone "
-            "knight kneels in a misty moonlit clearing beside a sword "
-            "planted upright in the ground as a marker, head bowed, "
-            "one gauntlet resting on the pommel, soft cold blue "
-            "moonlight through thin mist, a few fireflies glowing "
-            "faintly nearby, somber but tender mood, not graphic, shot "
-            "on a full-frame DSLR with a shallow depth of field, "
-            "muted nostalgic color grade, medium shot, 9:16 vertical, "
-            "no text, no watermark",
-        "animate_prompt": "Mist drifts slowly across the clearing "
-            "around the knight, fireflies pulsing faintly in the "
-            "shadows. The knight's hand tightens gently on the sword's "
-            "pommel, head still bowed. Moonlight shifts faintly as "
-            "thin clouds pass overhead. The camera drifts slowly and "
-            "quietly closer. A fair amount of movement throughout, "
-            "somber and dreamy, no text",
+        "title": "misty harbor town at dawn",
+        "has_people": False,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "quiet stone harbor town at dawn, weathered fishing boats "
+            "moored along a worn stone quay, narrow buildings with "
+            "peeling paint and mossy roofs lining the waterfront, soft "
+            "morning mist drifting low over the still water, pale "
+            "golden light breaking through, a few gulls in the sky, "
+            "muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "Mist drifts slowly across the still water "
+            "and along the quay. Small ripples move across the harbor "
+            "surface as the moored boats sway gently. Gulls glide "
+            "slowly through the pale sky. The camera slowly drifts "
+            "sideways along the waterfront, revealing more of the "
+            "harbor. A fair amount of movement throughout, calm and "
+            "nostalgic, no text",
     },
     {
-        "title": "blue flame in the snow",
+        "title": "grimy knight leading his horse through the meadow",
         "has_people": True,
-        "mood": "dark",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "crouches in a snowy twilight clearing, warming his bare "
-            "hands over a small magical blue flame cupped in his "
-            "palms, a deer watching quietly from the treeline, cool "
-            "blue-toned snow contrasted with the warm flame glow, "
-            "somber but tender mood, not graphic, shot on a full-"
-            "frame DSLR with a shallow depth of field, muted nostalgic "
-            "color grade, medium shot, 9:16 vertical, no text, no "
-            "watermark",
-        "animate_prompt": "The small blue flame flickers and dances in "
-            "the knight's cupped hands, casting a soft shifting glow "
-            "on his face. Snow falls gently around him. The deer shifts "
-            "its weight at the treeline, ears turning. The camera "
-            "drifts slowly in toward the flame. A fair amount of "
-            "movement throughout, somber and dreamy, no text",
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "knight in dented, mud-streaked armor walks slowly through "
+            "a vast wildflower meadow at sunset, leading a tired brown "
+            "horse by the reins, both small-to-medium in frame against "
+            "the huge warm sky and rolling fields, long grass and "
+            "wildflowers swaying around them, soft golden light, "
+            "muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "The knight and horse continue walking slowly "
+            "through the meadow, grass and wildflowers swaying and "
+            "parting around their legs. The horse's mane shifts in the "
+            "breeze. Golden light shifts gently as thin clouds drift "
+            "overhead. The camera drifts slowly alongside them at a "
+            "calm walking pace, wide enough to keep the full landscape "
+            "in frame. A fair amount of movement throughout, calm and "
+            "nostalgic, no text",
     },
     {
-        "title": "ruins by firelight",
-        "has_people": True,
-        "mood": "dark",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "sits inside a crumbling stone ruin at night, carefully "
-            "polishing his sword by the light of a small fire, warm "
-            "firelight flickering against moss-covered broken walls, "
-            "embers drifting upward through a gap in the roof toward "
-            "a starry sky, somber but peaceful mood, not graphic, shot "
-            "on a full-frame DSLR with a shallow depth of field, muted "
-            "nostalgic color grade, medium shot, 9:16 vertical, no "
+        "title": "mountain village street at twilight",
+        "has_people": False,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "narrow cobblestone street in a small stone mountain "
+            "village at twilight, a string of small lanterns hung "
+            "between weathered buildings, warm light glowing from a "
+            "few windows, moss and ivy growing on old stone walls, "
+            "distant mountains fading into deep blue dusk behind the "
+            "rooftops, muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, no people prominent in frame, 9:16 vertical, no "
             "text, no watermark",
-        "animate_prompt": "The fire flickers and crackles, casting "
-            "shifting warm light across the ruin's broken walls. "
-            "Embers rise steadily through the gap in the roof toward "
-            "the stars. The knight's cloth moves slowly along the "
-            "blade as he polishes it. The camera drifts slowly upward "
-            "following the embers. A fair amount of movement "
-            "throughout, somber and dreamy, no text",
+        "animate_prompt": "The hanging lanterns sway gently in the "
+            "evening breeze, their light flickering softly across the "
+            "cobblestones. Window light flickers faintly. Thin clouds "
+            "drift slowly behind the mountains in the deepening dusk. "
+            "The camera drifts slowly forward down the street. A fair "
+            "amount of movement throughout, calm and nostalgic, no "
+            "text",
     },
     {
-        "title": "cherry blossom walk",
+        "title": "grimy knight resting above the valley",
+        "has_people": True,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "knight in scratched, weathered armor sits resting against "
+            "an old gnarled tree on a hillside, full figure small in "
+            "frame against a vast view of a quiet valley town below, "
+            "warm late-afternoon light, soft haze over the distant "
+            "rooftops and fields, loose grass and wildflowers around "
+            "him, muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "Grass and loose branches sway gently in the "
+            "breeze around the knight as he sits still, looking out "
+            "over the valley. Haze drifts slowly over the distant "
+            "rooftops below. A few birds cross the sky in the "
+            "distance. The camera slowly drifts and zooms out, "
+            "revealing more of the valley and town below. A fair "
+            "amount of movement throughout, calm and nostalgic, no "
+            "text",
+    },
+    {
+        "title": "sunlit orchard town",
+        "has_people": False,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "quiet stone town bordered by a sunlit apple orchard in "
+            "full bloom, weathered rooftops visible through the "
+            "blossoming trees, petals drifting on the breeze, a "
+            "narrow dirt path winding between the orchard and the "
+            "town wall, warm midday light, muted nostalgic film-like "
+            "color grade, slightly desaturated, photorealistic "
+            "documentary photography style, not overly polished or "
+            "glossy, natural imperfect lighting, no people prominent "
+            "in frame, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "Blossom petals drift steadily through the "
+            "air across the orchard, branches swaying gently in the "
+            "breeze. Light shifts and dapples through the moving "
+            "leaves. Distant smoke rises faintly from a chimney in the "
+            "town. The camera drifts slowly forward along the path "
+            "toward the town. A fair amount of movement throughout, "
+            "calm and nostalgic, no text",
+    },
+    {
+        "title": "grimy knight at the stable",
+        "has_people": True,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "knight in worn, dusty armor stands in an open wooden "
+            "stable at the edge of a village, brushing down a horse, "
+            "full figure visible with the rustic stable interior and "
+            "a view of the village beyond the open doors, warm hazy "
+            "late-afternoon light spilling in, straw and dust drifting "
+            "in the sunbeams, muted nostalgic film-like color grade, "
+            "slightly desaturated, photorealistic documentary "
+            "photography style, not overly polished or glossy, "
+            "natural imperfect lighting, 9:16 vertical, no text, no "
+            "watermark",
+        "animate_prompt": "The knight's brush moves slowly along the "
+            "horse's flank, the horse shifting its weight and flicking "
+            "its tail. Dust and straw drift through the warm sunbeams "
+            "spilling through the stable doors. Distant village life "
+            "is faintly visible through the opening. The camera slowly "
+            "zooms out, revealing more of the stable and the village "
+            "beyond. A fair amount of movement throughout, calm and "
+            "nostalgic, no text",
+    },
+    {
+        "title": "snow-dusted mountain village",
+        "has_people": False,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "small stone mountain village dusted with fresh snow at "
+            "dusk, warm light glowing from cottage windows, smoke "
+            "rising from chimneys, a narrow snow-covered path winding "
+            "between the buildings, steep snowy peaks rising behind "
+            "the rooftops, muted nostalgic film-like color grade, "
+            "slightly desaturated, photorealistic documentary "
+            "photography style, not overly polished or glossy, "
+            "natural imperfect lighting, no people prominent in "
+            "frame, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "Snow falls gently over the village, "
+            "settling on the rooftops and path. Smoke drifts slowly "
+            "from the chimneys into the cold air. Window light "
+            "flickers softly. The camera drifts slowly forward and "
+            "down toward the village, revealing more of the snowy "
+            "street. A fair amount of movement throughout, calm and "
+            "nostalgic, no text",
+    },
+    {
+        "title": "grimy knight on the battlements",
+        "has_people": True,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "knight in dented, weathered armor sits on an old stone "
+            "town wall at sunset, legs hanging over the edge, full "
+            "figure visible with a wide view of the town's rooftops "
+            "and distant hills spread out below him, warm orange "
+            "light, loose dust and a few birds drifting past, muted "
+            "nostalgic film-like color grade, slightly desaturated, "
+            "photorealistic documentary photography style, not overly "
+            "polished or glossy, natural imperfect lighting, 9:16 "
+            "vertical, no text, no watermark",
+        "animate_prompt": "The knight's cloak shifts gently in the "
+            "evening breeze as he looks out over the town. Birds drift "
+            "slowly across the sunset sky below him. Smoke rises "
+            "faintly from distant chimneys. The camera slowly zooms "
+            "out and drifts sideways along the wall, revealing more of "
+            "the town and hills. A fair amount of movement throughout, "
+            "calm and nostalgic, no text",
+    },
+    {
+        "title": "river village at golden hour",
+        "has_people": False,
+        "mood": "light",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "quiet stone village straddling a slow river at golden "
+            "hour, an old arched stone bridge connecting both banks, "
+            "weathered buildings with mossy roofs along the water, "
+            "small wooden boats tied up at the bank, soft warm light "
+            "reflecting on the water, a few fireflies beginning to "
+            "glow in the shadows, muted nostalgic film-like color "
+            "grade, slightly desaturated, photorealistic documentary "
+            "photography style, not overly polished or glossy, "
+            "natural imperfect lighting, no people prominent in "
+            "frame, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "The river flows gently beneath the stone "
+            "bridge, the boats swaying slightly at their moorings. "
+            "Fireflies drift and pulse softly in the shadows along the "
+            "bank. Light reflects and shifts on the moving water "
+            "surface. The camera drifts slowly across the bridge, "
+            "revealing more of the village along the river. A fair "
+            "amount of movement throughout, calm and nostalgic, no "
+            "text",
+    },
+    {
+        "title": "grimy knight at the forest shrine",
         "has_people": True,
         "mood": "dark",
-        "still_prompt": "Intimate photorealistic portrait: a knight "
-            "walks slowly through a quiet cherry blossom grove at "
-            "dusk, petals swirling thickly around him in the soft "
-            "wind, faint cool blue-pink twilight light, a hand resting "
-            "on the pommel of a sheathed sword at his side, somber but "
-            "tender mood, not graphic, shot on a full-frame DSLR with "
-            "a shallow depth of field, muted nostalgic color grade, "
-            "medium shot, 9:16 vertical, no text, no watermark",
-        "animate_prompt": "Cherry blossom petals swirl thickly through "
-            "the air around the knight as he walks slowly forward, "
-            "cloak stirring in the breeze. Branches sway gently "
-            "overhead, releasing more petals. The camera tracks slowly "
-            "alongside him at a calm walking pace. A fair amount of "
-            "movement throughout, somber and dreamy, no text",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "knight in battered, grime-streaked armor kneels before a "
+            "small moss-covered stone shrine deep in a misty forest, "
+            "full figure visible with the wide clearing, ancient trees "
+            "and tangled roots around him, soft cool blue-grey light "
+            "filtering through the canopy, faint mist pooling low "
+            "across the ground, somber but tender mood, not graphic, "
+            "muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "Mist drifts slowly across the clearing "
+            "around the shrine and the kneeling knight. Light shifts "
+            "faintly through the moving canopy above. A few leaves "
+            "drift down from the ancient trees. The camera slowly "
+            "zooms out, revealing the full clearing and the tangled "
+            "roots and trees around the shrine. A fair amount of "
+            "movement throughout, somber and nostalgic, no text",
+    },
+    {
+        "title": "abandoned watchtower at dusk",
+        "has_people": False,
+        "mood": "dark",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a "
+            "crumbling stone watchtower standing alone on a windswept "
+            "hillside at dusk, moss and ivy climbing its weathered "
+            "walls, a few birds circling above, distant rolling hills "
+            "fading into deep blue twilight, a faint warm glow from a "
+            "single lit window near the top, somber but peaceful mood, "
+            "not graphic, muted nostalgic film-like color grade, "
+            "slightly desaturated, photorealistic documentary "
+            "photography style, not overly polished or glossy, "
+            "natural imperfect lighting, no people prominent in "
+            "frame, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "Tall grass sways steadily around the base "
+            "of the tower in the wind. Birds circle slowly above the "
+            "tower. The lit window flickers faintly. Thin clouds drift "
+            "across the darkening sky. The camera slowly drifts "
+            "forward and rises toward the tower, revealing more of the "
+            "windswept hillside. A fair amount of movement throughout, "
+            "somber and nostalgic, no text",
+    },
+    {
+        "title": "grimy knight crossing the old bridge",
+        "has_people": True,
+        "mood": "dark",
+        "still_prompt": "Wide cinematic photograph, zoomed out: a lone "
+            "knight in dented, rust-streaked armor walks slowly across "
+            "a long weathered stone bridge over a misty river at dusk, "
+            "small-to-medium in frame against the wide river valley "
+            "and fading blue light, a sheathed sword at his hip, mist "
+            "rising off the water below, somber but tender mood, not "
+            "graphic, muted nostalgic film-like color grade, slightly "
+            "desaturated, photorealistic documentary photography "
+            "style, not overly polished or glossy, natural imperfect "
+            "lighting, 9:16 vertical, no text, no watermark",
+        "animate_prompt": "The knight walks slowly across the bridge, "
+            "cloak shifting gently in the breeze. Mist drifts and "
+            "rises steadily off the river below. Thin clouds pass "
+            "overhead in the fading light. The camera tracks slowly "
+            "alongside him at a calm walking pace, wide enough to keep "
+            "the full bridge and valley in frame. A fair amount of "
+            "movement throughout, somber and nostalgic, no text",
+    },
+    {
+        "title": "quiet ruins overlooking the coast",
+        "has_people": False,
+        "mood": "dark",
+        "still_prompt": "Wide cinematic photograph, zoomed out: the "
+            "crumbling stone ruins of an old coastal fortress on a "
+            "windswept cliff at dusk, moss and wildflowers growing "
+            "through the broken walls, the sea stretching out far "
+            "below under a soft fading sky, a few birds gliding on the "
+            "wind, somber but peaceful mood, not graphic, muted "
+            "nostalgic film-like color grade, slightly desaturated, "
+            "photorealistic documentary photography style, not overly "
+            "polished or glossy, natural imperfect lighting, no "
+            "people prominent in frame, 9:16 vertical, no text, no "
+            "watermark",
+        "animate_prompt": "Wildflowers and grass sway steadily in the "
+            "sea wind around the broken walls. Birds glide slowly "
+            "along the cliff edge. Waves move faintly far below. Thin "
+            "clouds drift across the fading sky. The camera slowly "
+            "drifts forward toward the cliff edge, revealing more of "
+            "the ruins and the sea beyond. A fair amount of movement "
+            "throughout, somber and nostalgic, no text",
     },
 ]
