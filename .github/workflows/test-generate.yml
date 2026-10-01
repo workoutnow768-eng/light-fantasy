@@ -1,0 +1,40 @@
+name: Test Generate (manual, no posting)
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate-only:
+    runs-on: ubuntu-latest
+    name: Test Generate (manual, no posting)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate videos (no scheduling/posting)
+        env:
+          HIGGSFIELD_API_KEY: ${{ secrets.HIGGSFIELD_API_KEY }}
+          MUSIC_TRACK_URL: ${{ secrets.MUSIC_TRACK_URL }}
+        run: python scripts/main.py generate
+
+      - name: Commit generated videos and state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/light_fantasy state/light_fantasy_state.json
+          git diff --staged --quiet || git commit -m "Test-generate run (no posting)"
+          git push
