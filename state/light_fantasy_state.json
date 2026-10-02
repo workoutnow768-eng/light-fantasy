@@ -1,6 +1,6 @@
 {
   "_comment": "Bot-maintained rotation state for the light-fantasy video pipeline. Do not hand-edit last_scene_index/scheduled_up_to/music_offset_seconds while the bot is running on schedule -- it owns these fields.",
-  "last_scene_index": 4,
+  "last_scene_index": 0,
   "scheduled_up_to": "2026-10-09T08:00:00Z",
   "music_offset_seconds": 160.0,
   "last_run_at": "2026-10-01T18:22:42.104671Z",
@@ -10,5 +10,5 @@
     "12:00",
     "20:00"
   ],
-  "notes": "New niche for @spongebob_prime_ (rebranding an existing 15k-follower TikTok). Scene bank v4 (second reset): grimy/worn-armor knight moments mixed with knight-free towns and landscapes, always wide zoomed-out compositions, warm hazy nostalgic light, matching dez's TikTok reference (https://www.tiktok.com/@clawenai/video/7499162427452296490). last_scene_index reset to 0 to start the v4 rotation from the top. posts_per_day is TEMPORARILY set to 4 for a one-off manual test-generate run (triggered via the Test Generate workflow, which only runs the generate step -- no Buffer scheduling/posting) to produce 4 review clips in one go. Reset posts_per_day to 2 (dez's requested live rate) once a review batch is approved and before the daily cron workflow is relied on."
+  "notes": "New niche for @spongebob_prime_ (rebranding an existing 15k-follower TikTok). Scene bank v5 (2026-10-02): 50 curated Higgsfield stills (image_url) dez hand-picked, replacing per-run Soul still generation -- 34 light / 16 dark, grimy/worn-armor knight moments mixed with knight-free towns and landscapes, wide zoomed-out compositions, warm hazy nostalgic light, matching dez's TikTok reference (https://www.tiktok.com/@clawenai/video/7499162427452296490). last_scene_index reset to 0 to start the v5 50-scene rotation from the top. posts_per_day is TEMPORARILY set to 4 for a one-off manual test-generate run (triggered via the Test Generate workflow, which only runs the generate step -- no Buffer scheduling/posting) to produce 4 review clips in one go. Reset posts_per_day to 2 (dez's requested live rate) once a review batch is approved and before the daily cron workflow is relied on."
 }
