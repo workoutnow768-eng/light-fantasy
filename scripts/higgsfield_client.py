@@ -1,13 +1,23 @@
 """
 Thin client for Higgsfield's developer REST API. Same pattern as
 creepvale/pallowyn's higgsfield_client.py (combined HIGGSFIELD_API_KEY
-secret, api.higgsfield.ai host), with one difference for this niche:
+secret, api.higgsfield.ai host), with two differences for this niche:
 
-duration defaults to 10 (not 6) -- dez asked for 10s clips on this
-account specifically, longer than the other niches' 6s clips. Hailuo
-2.3's image-to-video endpoint only accepts 6 or 10 as valid duration
-values (no other lengths), so 10 is the longest option available.
-mux_audio.CLIP_DURATION_SECONDS is set to match (10.0).
+1. duration defaults to 10 (not 6) -- dez asked for 10s clips on this
+   account specifically, longer than the other niches' 6s clips. Hailuo
+   2.3's image-to-video endpoint only accepts 6 or 10 as valid duration
+   values (no other lengths), so 10 is the longest option available.
+   mux_audio.CLIP_DURATION_SECONDS is set to match (10.0).
+
+2. Scenes carry a pre-made "image_url" (scene_bank v5, 2026-10-02) --
+   50 stills dez generated and approved by hand through Higgsfield's
+   web app (Seedream 5.0 lite, Unlimited mode, no API credit cost),
+   hosted on Higgsfield's own CDN. generate_one_post() downloads the
+   still straight from image_url and skips the Soul still-generation
+   API call entirely for these scenes -- only the Hailuo animation
+   step still spends API credits. generate_image() / the Soul endpoint
+   are kept below for backward compatibility with any scene that still
+   carries a "still_prompt" instead of "image_url".
 """
 import os
 import time
@@ -20,6 +30,15 @@ GENERATE_VIDEO_ENDPOINT = f"{API_BASE_URL}/minimax/hailuo-2.3/standard/image-to-
 
 POLL_INTERVAL_SECONDS = 5
 POLL_TIMEOUT_SECONDS = 300
+
+# dez flagged an early test clip as going blurry mid-animation. Appended
+# to every animate_prompt before submission so every scene gets this
+# guard, instead of hand-editing 50+ scene prompts individually.
+ANTI_BLUR_SUFFIX = (
+    ", the entire clip stays in crisp sharp focus throughout -- no motion "
+    "blur, no soft or blurry frames, no focus hunting, consistently sharp "
+    "detail on the subject the whole time"
+)
 
 class GenerationBlocked(Exception):
     """Raised when Higgsfield flags a generation as nsfw -- never use the result."""
@@ -45,7 +64,6 @@ def _submit(endpoint, payload):
     if not status_url:
         raise GenerationFailed(f"No status_url in response: {data}")
     return status_url
-
 def poll_until_done(status_url, poll_interval=POLL_INTERVAL_SECONDS, timeout=POLL_TIMEOUT_SECONDS):
     elapsed = 0
     while elapsed < timeout:
@@ -78,13 +96,20 @@ def _first_url_in(result, *candidate_keys):
             return val
     return None
 
-def download_file(url, out_path):
-    resp = requests.get(url, timeout=120)
-    resp.raise_for_status()
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    with open(out_path, "wb") as f:
-        f.write(resp.content)
-    return out_path
+def download_file(url, out_path, max_retries=3):
+    last_err = None
+    for attempt in range(max_retries):
+        try:
+            resp = requests.get(url, timeout=120)
+            resp.raise_for_status()
+            os.makedirs(os.path.dirname(out_path), exist_ok=True)
+            with open(out_path, "wb") as f:
+                f.write(resp.content)
+            return out_path
+        except requests.RequestException as e:
+            last_err = e
+            time.sleep(3)
+    raise GenerationFailed(f"Failed to download {url} after {max_retries} attempts: {last_err}")
 
 def generate_image(prompt, out_path, aspect_ratio="9:16", resolution="1080p", max_retries=2):
     last_err = None
@@ -105,7 +130,6 @@ def generate_image(prompt, out_path, aspect_ratio="9:16", resolution="1080p", ma
             last_err = e
             time.sleep(3)
     raise GenerationFailed(f"Failed after {max_retries} attempts: {last_err}")
-
 def generate_video_from_image(prompt, image_url, out_path, duration=10, max_retries=2):
     last_err = None
     for attempt in range(max_retries):
@@ -133,8 +157,17 @@ def generate_one_post(scene, out_dir):
     still_path = os.path.join(out_dir, "still.png")
     video_path = os.path.join(out_dir, "video_silent.mp4")
 
-    _, image_url = generate_image(scene["still_prompt"], still_path)
-    generate_video_from_image(scene["animate_prompt"], image_url, video_path, duration=10)
+    if scene.get("image_url"):
+        # Pre-made still (scene_bank v5) -- just pull it down, no Soul call.
+        image_url = scene["image_url"]
+        download_file(image_url, still_path)
+    else:
+        # Backward-compatible path for any scene still carrying a
+        # still_prompt instead of a ready-made image_url.
+        _, image_url = generate_image(scene["still_prompt"], still_path)
+
+    animate_prompt = scene["animate_prompt"] + ANTI_BLUR_SUFFIX
+    generate_video_from_image(animate_prompt, image_url, video_path, duration=10)
 
     return {"still_path": still_path, "video_path": video_path}
 
