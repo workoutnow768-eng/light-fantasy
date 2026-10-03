@@ -1,9 +1,9 @@
 {
   "_comment": "Bot-maintained rotation state for the light-fantasy video pipeline. Do not hand-edit last_scene_index/scheduled_up_to/music_offset_seconds while the bot is running on schedule -- it owns these fields.",
-  "last_scene_index": 8,
-  "scheduled_up_to": "2026-10-13T08:00:00Z",
-  "music_offset_seconds": 40.0,
-  "last_run_at": "2026-10-02T16:34:40.299343Z",
+  "last_scene_index": 12,
+  "scheduled_up_to": "2026-10-15T08:00:00Z",
+  "music_offset_seconds": 80.0,
+  "last_run_at": "2026-10-03T11:52:03.712529Z",
   "last_run_slot": "github_actions_autonomous_bot",
   "posts_per_day": 4,
   "daily_time_slots_uk": [
