@@ -112,7 +112,7 @@ def cmd_generate():
         if offset >= track_duration:
             offset = 0.0
 
-        scheduled_up_to = scheduled_up_to + datetime.timedelta(hours=12)
+        scheduled_up_to = scheduled_up_to + datetime.timedelta(hours=24 / posts_per_day)
         manifest.append({
             "scene_index": indices[i],
             "title": scenes[i]["title"],
