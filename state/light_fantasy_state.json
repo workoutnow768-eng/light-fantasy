@@ -1,11 +1,14 @@
 {
-"_comment": "Bot-maintained rotation state for the light-fantasy video pipeline. Do not hand-edit last_scene_index/scheduled_up_to/music_offset_seconds while the bot is running on schedule -- it owns these fields.",
-"last_scene_index": 12,
-"scheduled_up_to": "2026-10-15T08:00:00Z",
-"music_offset_seconds": 80.0,
-"last_run_at": "2026-10-03T11:52:03.712529Z",
-"last_run_slot": "github_actions_autonomous_bot",
-"posts_per_day": 2,
-"daily_time_slots_uk": ["12:00", "20:00"],
-"notes": "New niche for @spongebob_prime_ (rebranding an existing 15k-follower TikTok). Scene bank v5 (2026-10-02): 50 curated Higgsfield stills (image_url) dez hand-picked, replacing per-run Soul still generation -- 34 light / 16 dark, grimy/worn-armor knight moments mixed with knight-free towns and landscapes, wide zoomed-out compositions, warm hazy nostalgic light, matching dez's TikTok reference (https://www.tiktok.com/@clawenai/video/7499162427452296490). last_scene_index reset to 0 to start the v5 50-scene rotation from the top. posts_per_day reset to 2/day (dez's approved live rate) on 2026-10-03 after reviewing the v5 test batch; post spacing is now computed dynamically as 24/posts_per_day hours (see main.py), so this stays correct if the rate ever changes again."
+  "_comment": "Bot-maintained rotation state for the light-fantasy video pipeline. Do not hand-edit last_scene_index/scheduled_up_to/music_offset_seconds while the bot is running on schedule -- it owns these fields.",
+  "last_scene_index": 14,
+  "scheduled_up_to": "2026-10-16T08:00:00Z",
+  "music_offset_seconds": 100.0,
+  "last_run_at": "2026-10-03T15:06:04.054517Z",
+  "last_run_slot": "github_actions_autonomous_bot",
+  "posts_per_day": 2,
+  "daily_time_slots_uk": [
+    "12:00",
+    "20:00"
+  ],
+  "notes": "New niche for @spongebob_prime_ (rebranding an existing 15k-follower TikTok). Scene bank v5 (2026-10-02): 50 curated Higgsfield stills (image_url) dez hand-picked, replacing per-run Soul still generation -- 34 light / 16 dark, grimy/worn-armor knight moments mixed with knight-free towns and landscapes, wide zoomed-out compositions, warm hazy nostalgic light, matching dez's TikTok reference (https://www.tiktok.com/@clawenai/video/7499162427452296490). last_scene_index reset to 0 to start the v5 50-scene rotation from the top. posts_per_day reset to 2/day (dez's approved live rate) on 2026-10-03 after reviewing the v5 test batch; post spacing is now computed dynamically as 24/posts_per_day hours (see main.py), so this stays correct if the rate ever changes again."
 }
