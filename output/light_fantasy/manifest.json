@@ -1,26 +1,14 @@
 [
   {
-    "scene_index": 8,
-    "title": "grimy knight at the stable",
+    "scene_index": 12,
+    "title": "grimy knight at the forest shrine",
     "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_0/final.mp4",
-    "scheduled_at": "2026-10-13T20:00:00Z"
+    "scheduled_at": "2026-10-15T20:00:00Z"
   },
   {
-    "scene_index": 9,
-    "title": "snow-dusted mountain village",
+    "scene_index": 13,
+    "title": "abandoned watchtower at dusk",
     "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_1/final.mp4",
-    "scheduled_at": "2026-10-14T08:00:00Z"
-  },
-  {
-    "scene_index": 10,
-    "title": "grimy knight on the battlements",
-    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_2/final.mp4",
-    "scheduled_at": "2026-10-14T20:00:00Z"
-  },
-  {
-    "scene_index": 11,
-    "title": "river village at golden hour",
-    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_3/final.mp4",
-    "scheduled_at": "2026-10-15T08:00:00Z"
+    "scheduled_at": "2026-10-16T08:00:00Z"
   }
 ]
