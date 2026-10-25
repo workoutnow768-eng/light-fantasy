@@ -1,0 +1,14 @@
+[
+  {
+    "scene_index": 0,
+    "title": "grimy knight at the village well",
+    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_0/final.mp4",
+    "scheduled_at": "2026-10-22T10:30:00Z"
+  },
+  {
+    "scene_index": 1,
+    "title": "hillside village at golden hour",
+    "final_path": "/home/runner/work/light-fantasy/light-fantasy/scripts/../output/light_fantasy/post_1/final.mp4",
+    "scheduled_at": "2026-10-22T22:30:00Z"
+  }
+]
